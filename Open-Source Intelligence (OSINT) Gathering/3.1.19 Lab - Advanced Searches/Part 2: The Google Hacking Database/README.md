@@ -154,9 +154,9 @@ The purpose of the lab is to recognize what type of page the search identifiesâ€
 
 ---
 
-# Step 6: Understanding the Screenshot
+# Step 6: Understanding the picture
 
-The screenshot you uploaded shows a **Windows 2000 Terminal Services Web Connection** login page.
+It shows a **Windows 2000 Terminal Services Web Connection** login page.
 
 It contains fields such as:
 
