@@ -469,30 +469,3 @@ Answer:
 
 Username searches help identify publicly available accounts associated with an individual across multiple websites. These accounts may reveal professional information, interests, technologies used, and other details that can support OSINT investigations, security assessments, or social engineering awareness. Organizations can use this information to understand and reduce unnecessary public exposure.
 
-### Key Learning Points
-
-Framework
-
-OSINT Framework
-
-A categorized map of OSINT resources and investigation areas.
-
-Username
-
-WhatsMyName
-
-Checks whether a username appears on many public websites and services.
-
-Discovery
-
-SMART
-
-Finds additional OSINT tools and bookmarked resources shared by researchers.
-
-Recon
-
-Passive reconnaissance
-
-Collects publicly available information without interacting with the target's systems.
-
-For your MSc cybersecurity studies and future PNPT/OSCP preparation, these username-enumeration and OSINT techniques are foundational skills because they teach you how attackers gather information before any technical attack begins.
