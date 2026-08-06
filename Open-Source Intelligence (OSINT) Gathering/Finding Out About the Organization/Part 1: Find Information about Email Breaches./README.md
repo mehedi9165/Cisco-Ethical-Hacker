@@ -288,6 +288,10 @@ The email address was found in multiple publicly known breaches, including Adobe
 > **Important:** Only search email addresses or domains that you own or have explicit permission to assess. Unauthorized collection or use of breach data may violate privacy policies, laws, or ethical guidelines.
 
 
+
+
+
+
 # Step 2: Use a tool to find email addresses for a domain.
 
 This lab teaches you how to use **EmailHarvester** to gather **publicly available email addresses** associated with a domain as part of **OSINT (Open-Source Intelligence)**. The intent is reconnaissance on public information, not unauthorized access. Below is a detailed walkthrough.
