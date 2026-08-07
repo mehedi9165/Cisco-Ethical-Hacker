@@ -1,60 +1,53 @@
-This lab teaches you how to use **SpiderFoot**, one of the most powerful **OSINT automation tools**. It automates information gathering from **200+ modules** and **1000+ public data sources**. Security professionals use it during the **Reconnaissance (Recon)** phase of a penetration test to collect publicly available information about a target.
-
-> **Important:** Always scan only domains, IPs, or organizations that you own or have permission to assess. When in doubt, use the **Passive** scan type, which is designed to avoid interacting directly with the target.
-
----
 
 # Lab Objective
 
-After completing this lab, you will be able to:
+In this lab you will learn:
 
-* Start SpiderFoot
-* Understand SpiderFoot modules
-* Use the Settings page
+* Install and start SpiderFoot
+* Explore SpiderFoot modules
 * Search modules from the terminal
-* Create a new scan
-* Run a Footprint or Passive scan
-* Analyze scan results
-* Configure API keys (optional)
-* Understand which modules provide different types of OSINT information
+* Understand API requirements
+* Complete the lab table
+* Run a Footprint scan
+* Analyze the results
 
 ---
 
 # What is SpiderFoot?
 
-SpiderFoot is an **OSINT automation framework**.
+SpiderFoot is an automated **OSINT (Open Source Intelligence)** tool.
 
-Instead of manually visiting many websites, SpiderFoot queries many public data sources and combines the results into one report.
+Instead of manually searching Google, GitHub, Shodan, DNS records, breach databases, social media, etc., SpiderFoot queries many public sources and combines the findings into one report.
 
-It can search for:
+Latest versions include hundreds of modules (the exact number changes over time).
 
-* Domains
-* Email addresses
-* IP addresses
-* Phone numbers
-* Names
-* Usernames
-* Subnets
-* Autonomous System Numbers (ASN)
+It accepts targets such as:
+
+* Domain
+* IP address
+* ASN
+* Email
+* Phone number
+* Person's name
 
 ---
 
-# Step 1: Start SpiderFoot
+# Step 1 — Start SpiderFoot
 
-Open Kali Linux.
+Open Kali Terminal.
 
-Open Terminal.
-
-Run:
+Run
 
 ```bash
 spiderfoot -l 127.0.0.1:5001
 ```
 
-Example output:
+Example
 
-```text
-SpiderFoot starting...
+```
+SpiderFoot 4.x
+
+Starting web server...
 
 Listening on:
 
@@ -63,116 +56,224 @@ http://127.0.0.1:5001
 
 Do **NOT** close this terminal.
 
-Minimize it.
-
 ---
 
-# Step 2: Open the GUI
+# Step 2 — Open the GUI
 
 Open Firefox.
 
-Visit:
+Visit
 
-```text
+```
 http://127.0.0.1:5001
 ```
 
-You will see the SpiderFoot dashboard.
+You should see
 
-If this is your first time, the **Scans** page will be empty.
+```
+SpiderFoot
 
-Menu:
-
-```text
 Scans
 
 New Scan
-
-Browse
 
 Settings
 
 Logs
 ```
 
+If this is your first time,
+
+Scans page is empty.
+
 ---
 
-# Step 3: Explore Settings
+# Step 3 — Explore Settings
 
 Click
 
-```text
+```
 Settings
 ```
 
-There are many modules (the exact number depends on your SpiderFoot version).
+Left side contains
 
-The first items configure SpiderFoot itself.
+```
+SpiderFoot
 
-Below them are the OSINT modules.
+General
 
-Each module contains:
+Modules
 
-* Scanner name
-* Module name
-* Description
-* API settings
-* Documentation
-
-Example:
-
-```text
 Account Finder
 
-Module:
+AbuseIPDB
+
+AlienVault
+
+Archive.org
+
+Bing
+
+BuiltWith
+
+Censys
+
+DNS
+
+EmailCrawlr
+
+GitHub
+
+Hunter
+
+Leak Lookup
+
+Shodan
+
+VirusTotal
+
+...
+```
+
+Every entry is a SpiderFoot module.
+
+---
+
+# Step 4 — Understand Module Names
+
+Open one module.
+
+Example
+
+```
+Account Finder
+```
+
+You will see
+
+```
+Module
 
 sfp_accounts
 ```
 
----
+Every SpiderFoot module begins with
 
-# Step 4: Understand Module Names
-
-Every SpiderFoot module starts with:
-
-```text
+```
 sfp_
 ```
 
-Example:
+Examples
 
-| Module          | Purpose                       |
-| --------------- | ----------------------------- |
-| sfp_accounts    | Username/account search       |
-| sfp_emailcrawlr | Email search                  |
-| sfp_crossref    | Link relationships            |
-| sfp_ipapicom    | IP geolocation                |
-| sfp_grep_app    | Public code/domain references |
-| sfp_intellx     | IntelligenceX integration     |
+```
+sfp_accounts
+
+sfp_emailcrawlr
+
+sfp_crossref
+
+sfp_dns
+
+sfp_ipapicom
+
+sfp_shodan
+
+sfp_hunter
+```
 
 ---
 
-# Step 5: Find Modules Using the Terminal
+# Step 5 — Which Modules Need APIs?
 
-SpiderFoot can list modules from the command line.
+Some modules show
 
-Run:
+🔒 Lock icon
+
+Example
+
+```
+Hunter.io
+```
+
+Click it.
+
+You may see
+
+```
+API Key
+
+Required
+```
+
+Click
+
+```
+?
+```
+
+SpiderFoot tells you
+
+* Website
+* Registration process
+* Free plan available?
+* Paid?
+
+---
+
+# Step 6 — Explore Modules from Terminal
+
+SpiderFoot also works in terminal.
+
+Show help
+
+```bash
+spiderfoot -h
+```
+
+Show modules
 
 ```bash
 spiderfoot -M
 ```
 
-This displays all available modules.
+Output
 
-To search for a keyword, use:
+```
+sfp_accounts
+
+sfp_abuseipdb
+
+sfp_archive
+
+sfp_email
+
+sfp_dns
+
+sfp_emailcrawlr
+
+sfp_hunter
+
+sfp_intellx
+
+...
+```
+
+---
+
+# Step 7 — Search Modules
+
+Find email modules
 
 ```bash
 spiderfoot -M | grep email
 ```
 
-Example output:
+Example
 
-```text
+```
+sfp_email
+
 sfp_emailcrawlr
 
 sfp_emailformat
@@ -180,384 +281,227 @@ sfp_emailformat
 sfp_emailrep
 ```
 
-Search for IP modules:
-
-```bash
-spiderfoot -M | grep ip
-```
-
-Search for DNS:
+Find DNS modules
 
 ```bash
 spiderfoot -M | grep dns
 ```
 
-This helps you quickly identify relevant modules.
+Output
 
----
+```
+sfp_dns
 
-# Step 6: Complete the Lab Table
+sfp_dnscommonsrv
 
-Below are example answers based on common SpiderFoot modules.
-
-| Information Type             | Scanner / Module                                              | API Required?             | Comments                                           |
-| ---------------------------- | ------------------------------------------------------------- | ------------------------- | -------------------------------------------------- |
-| Possible accounts            | Account Finder (`sfp_accounts`)                               | No                        | Finds public accounts on many websites             |
-| Links associated with target | Cross-Referencer (`sfp_crossref`)                             | No                        | Finds relationships between discovered entities    |
-| Email addresses              | EmailCrawlr (`sfp_emailcrawlr`)                               | Yes (Free plan available) | Searches public email references                   |
-| Domains & URLs               | grep.app (`sfp_grep_app`)                                     | Yes (Free plan available) | Finds public references to domains and URLs        |
-| Geolocation                  | ipapi.com (`sfp_ipapicom`)                                    | Yes (Free plan available) | Provides IP geolocation information                |
-| Data breach information      | Leak-Lookup / Intelligence-related module (varies by version) | Yes                       | Searches public breach information where supported |
-
-> Module names and API requirements may vary slightly depending on the SpiderFoot version you are using.
-
----
-
-# Step 7: Create a New Scan
-
-Click
-
-```text
-New Scan
+sfp_dnsresolve
 ```
 
-You will see:
+Find GitHub
 
-```text
-Scan Name
-
-Target
-
-Scan Type
+```bash
+spiderfoot -M | grep github
 ```
 
-Example:
+Output
 
-**Scan Name**
-
-```text
-My Domain Scan
+```
+sfp_github
 ```
 
-Target:
+Find breach modules
 
-```text
-h4cker.org
+```bash
+spiderfoot -M | grep leak
+```
+
+or
+
+```bash
+spiderfoot -M | grep breach
 ```
 
 ---
 
-# Step 8: Choose the Scan Type
+# Step 8 — Complete the Table
 
-SpiderFoot offers several use cases:
+Your lab asks you to identify one module for each information type.
 
-### 1. All
+Below is an example. Your exact module names may vary slightly depending on the SpiderFoot version.
 
-Searches almost everything.
+| Information Type                            | Scanner / Module                                                 | API Required              | Comments                                             |
+| ------------------------------------------- | ---------------------------------------------------------------- | ------------------------- | ---------------------------------------------------- |
+| Possible accounts associated with a domain  | Account Finder (`sfp_accounts`)                                  | No                        | Searches many public sites for related accounts      |
+| Links associated with the target            | Cross-Referencer (`sfp_crossref`)                                | No                        | Correlates relationships between discovered entities |
+| Email addresses associated with the target  | EmailCrawlr (`sfp_emailcrawlr`)                                  | Yes (Free plan available) | Searches public email references                     |
+| Domains and URLs associated with the target | grep.app (`sfp_grep_app`)                                        | Yes (Free plan available) | Finds references in public code repositories         |
+| Geolocation information                     | ipapi.com (`sfp_ipapicom`)                                       | Yes (Free plan available) | Provides IP geolocation data                         |
+| Data breach information                     | Leak-Lookup or another breach-related module (varies by version) | Usually Yes               | Checks public breach data where supported            |
 
-Very thorough.
-
-Can take several hours.
-
----
-
-### 2. Footprint
-
-Recommended for learning.
-
-Looks for:
-
-* Domains
-* Emails
-* IPs
-* DNS
-* Web information
-* Public identities
+> Different SpiderFoot releases enable, rename, or retire modules, so compare these with the modules shown in **Settings** on your installation.
 
 ---
 
-### 3. Investigate
+# Example Module Page
 
-Focuses on indicators of potentially malicious infrastructure using public threat intelligence sources.
+Suppose you open
 
----
-
-### 4. Passive
-
-Safest option.
-
-Only collects publicly available information without directly interacting with the target.
-
-For coursework and demonstrations, **Passive** is generally the safest choice unless you have explicit permission for broader testing.
-
----
-
-# Step 9: Start the Scan
-
-Click
-
-```text
-Run Scan Now
+```
+EmailCrawlr
 ```
 
-SpiderFoot starts scanning.
+You might see
 
-Example status:
-
-```text
-Running...
-
-10%
-
-25%
-
-50%
-
-80%
-
-100%
 ```
+Scanner
 
-Results begin appearing as modules complete.
+EmailCrawlr
+
+Module
+
+sfp_emailcrawlr
+
+Purpose
+
+Searches public sources for email addresses
+
+API Required
+
+Yes
+
+Free Plan
+
+Yes
+```
 
 ---
 
-# Step 10: Monitor the Graph
+# Example: grep.app
 
-SpiderFoot displays a graph.
+```
+Scanner
 
-Example:
+grep.app
 
-```text
-Email
+Module
 
-██████
+sfp_grep_app
 
-IP Address
+Purpose
 
-████
+Search public code
 
-Domains
+API
 
-███████
+Required
+```
 
+Useful for finding
+
+```
 URLs
 
-█████
-```
+API endpoints
 
-Hover over a bar.
+Domain names
 
-Example:
-
-```text
-Email Addresses
-
-15 Found
+Configuration files
 ```
 
 ---
 
-# Step 11: Stop the Scan
+# Example: ipapi.com
 
-Go to:
+```
+Module
 
-```text
-Scans
+sfp_ipapicom
 ```
 
-Click the **Stop** button (black square) if you want to end the scan.
+Returns
 
-Some reports become available only after the scan is completed or stopped.
+```
+Country
+
+City
+
+Latitude
+
+Longitude
+
+ISP
+```
 
 ---
 
-# Step 12: Browse Results
+# Example: Cross Referencer
 
-Click the scan name.
+```
+Module
 
-Open:
-
-```text
-Browse
+sfp_crossref
 ```
 
-You will see a table.
+Purpose
 
-Example:
+```
+Connects discovered entities together
 
-| Data Type | Data                                          | Source Module   |
-| --------- | --------------------------------------------- | --------------- |
-| Email     | [admin@example.com](mailto:admin@example.com) | sfp_emailcrawlr |
-| Domain    | example.com                                   | sfp_dns         |
-| IP        | 192.0.2.1                                     | sfp_ipapicom    |
-| URL       | [www.example.com](http://www.example.com)     | sfp_crossref    |
+Example
 
-Each row shows which module discovered the information.
+Email
+
+↓
+
+GitHub
+
+↓
+
+Domain
+
+↓
+
+DNS
+```
 
 ---
 
-# Step 13: Configure API Keys (Optional)
+# Why is grep useful?
 
-Some modules require API keys.
+Suppose there are 250 modules.
 
-Go to:
+Instead of scrolling,
 
-```text
-Settings
+search
+
+```bash
+grep dns
+
+grep github
+
+grep leak
+
+grep email
 ```
 
-Find a module.
-
-Click:
-
-```text
-?
-```
-
-SpiderFoot explains:
-
-* Where to register
-* How to obtain the key
-* Whether a free plan exists
-
-Example modules:
-
-| Module        | Information                            |
-| ------------- | -------------------------------------- |
-| BuiltWith     | Technologies used by websites          |
-| Hunter.io     | Public email addresses                 |
-| Onion.link    | Public Tor-related information         |
-| IntelligenceX | Broad public OSINT search capabilities |
+Much faster.
 
 ---
 
-# Step 14: Enter API Keys
+# How to Verify the Answers
 
-After registering (where applicable):
+For each row in the table:
 
-Paste the API key into the module settings.
+1. Open **Settings**.
+2. Select the module.
+3. Read:
 
-Click
+   * Module name (`sfp_...`)
+   * Description
+   * API requirements
+4. Record the information in your table.
 
-```text
-Save
-```
-
-Repeat for other modules.
-
----
-
-# Step 15: Scan Using Only API Modules
-
-Go to:
-
-```text
-New Scan
-```
-
-Choose:
-
-```text
-By Module
-```
-
-Select only the modules for which you've configured API keys.
-
-Target:
-
-```text
-h4cker.org
-```
-
-Click:
-
-```text
-Run Scan
-```
-
-This focuses the scan on those specific data sources.
+This is exactly what the lab expects you to do.
 
 ---
-
-# Step 16: Analyze API Results
-
-When finished:
-
-Open
-
-```text
-Browse
-```
-
-Look at the **Source Module** column.
-
-Example:
-
-| Data          | Source Module   |
-| ------------- | --------------- |
-| Leak Site URL | `sfp_intellx`   |
-| Email         | `sfp_hunter`    |
-| Technology    | `sfp_builtwith` |
-
----
-
-# Lab Question 1
-
-**Which module contributed to the Leak Site URL table?**
-
-**Answer:**
-
-> `sfp_intellx`
-
----
-
-# Lab Question 2
-
-**What do you see when opening several entries?**
-
-**Answer:**
-
-> Publicly available information referenced by the module, such as archived or indexed content from the linked source. The exact results depend on the target and the data available through the configured service.
-
----
-
-# Overall Workflow
-
-```text
-Start SpiderFoot
-        │
-        ▼
-Open GUI
-        │
-        ▼
-Explore Settings
-        │
-        ▼
-Review Modules
-        │
-        ▼
-(Optional) Configure API Keys
-        │
-        ▼
-New Scan
-        │
-        ▼
-Choose Passive or Footprint
-        │
-        ▼
-Run Scan
-        │
-        ▼
-Wait for Results
-        │
-        ▼
-Browse Findings
-        │
-        ▼
-Review Source Modules
-        │
-        ▼
-Create Report
-```
 
