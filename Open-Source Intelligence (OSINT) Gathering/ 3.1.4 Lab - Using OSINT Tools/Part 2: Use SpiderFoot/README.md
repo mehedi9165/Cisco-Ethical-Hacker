@@ -509,6 +509,13 @@ Absolutely. This is one of the most important SpiderFoot labs because it teaches
 
 ---
 
+
+
+
+
+
+
+
 # Part 2: Run a SpiderFoot Scan
 
 ## What are we doing?
