@@ -501,13 +501,6 @@ For each row in the table:
    * API requirements
 4. Record the information in your table.
 
-This is exactly what the lab expects you to do.
-
----
-
-Absolutely. This is one of the most important SpiderFoot labs because it teaches you how to perform **automated passive reconnaissance (OSINT)**. I'll explain **every click, every option, and what you should expect to see**. I will **not fabricate live scan results**, but I'll show you realistic example outputs and explain how to interpret them.
-
----
 
 
 
