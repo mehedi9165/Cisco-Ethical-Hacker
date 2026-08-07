@@ -90,9 +90,11 @@ https://crt.sh/?trk=article-ssr-frontend-pulse_little-text-block
 ```
 or
 
+
 ```
 [https://crt.sh/?trk=article-ssr-frontend-pulse_little-text-block](https://www.linkedin.com/pulse/crtsh-how-discover-ssltls-certificates-subdomains-using-alex-krasov-vuj5c)
 ```
+
 
 No login is required.
 
