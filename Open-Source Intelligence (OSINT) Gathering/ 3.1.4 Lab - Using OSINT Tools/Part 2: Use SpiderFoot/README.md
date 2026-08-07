@@ -1,4 +1,4 @@
-
+# Part 1 (Step 1: Start and run SpiderFoot + Step 2: Explore SpiderFoot)
 # Lab Objective
 
 In this lab you will learn:
