@@ -1,10 +1,5 @@
 # Part 4: Perform Reverse DNS (rDNS) Lookups 
 
-This lab teaches you how to perform **Reverse DNS (rDNS) lookups**, which are commonly used during the **information gathering (OSINT)** phase of penetration testing.
-
-Unlike normal DNS lookups (Hostname → IP), **Reverse DNS** converts an **IP address → Hostname**.
-
----
 
 # Lab Objective
 
