@@ -1,0 +1,572 @@
+
+# Part 4: Use Kali Tools to Gather Certificate Information
+
+## Objective
+
+In this lab, you will learn how to:
+
+* Install the **aha** utility.
+* Use **sslscan** to inspect a website's SSL/TLS configuration.
+* Save the scan results as an HTML report.
+* Open and analyze the report in Firefox.
+
+---
+
+# Step 1: Update the Package List
+
+Before installing any software, update Kali Linux's package database.
+
+### Command
+
+```bash
+sudo apt update
+```
+
+### What does this command do?
+
+Let's break it down.
+
+### `sudo`
+
+* **Super User DO**
+* Executes the command with administrator (root) privileges.
+* Installing software requires administrative permissions.
+
+Example:
+
+```bash
+sudo apt update
+```
+
+You may be asked for your password.
+
+---
+
+### `apt`
+
+APT stands for
+
+> **Advanced Package Tool**
+
+It is Kali Linux's package management system.
+
+APT is used to:
+
+* Install software
+* Remove software
+* Update repositories
+* Upgrade installed packages
+
+Examples:
+
+```bash
+sudo apt install nmap
+```
+
+```bash
+sudo apt remove nmap
+```
+
+---
+
+### `update`
+
+This does **not** upgrade software.
+
+Instead, it downloads the latest package information from configured repositories.
+
+Think of it as refreshing the software catalog.
+
+Example output:
+
+```text
+Hit:1 http://http.kali.org kali-rolling InRelease
+Reading package lists... Done
+Building dependency tree... Done
+```
+
+---
+
+## Why update first?
+
+Suppose Kali thinks the newest version of **aha** is:
+
+```
+0.5
+```
+
+But a newer version:
+
+```
+0.6
+```
+
+is available.
+
+Running
+
+```bash
+sudo apt update
+```
+
+tells Kali about version **0.6** before installation.
+
+---
+
+# Step 2: Install AHA
+
+Now install **aha**.
+
+### Command
+
+```bash
+sudo apt install -y aha
+```
+
+---
+
+## Breaking it down
+
+### `install`
+
+Tells APT to install software.
+
+---
+
+### `-y`
+
+Means:
+
+```text
+Automatically answer "Yes"
+```
+
+Normally you'll see:
+
+```text
+Do you want to continue? [Y/n]
+```
+
+Using
+
+```bash
+-y
+```
+
+automatically answers:
+
+```
+Y
+```
+
+making installation non-interactive.
+
+---
+
+### `aha`
+
+This is the package name.
+
+AHA stands for
+
+> **ANSI HTML Adapter**
+
+---
+
+## What is AHA?
+
+Many Linux terminal programs use ANSI color codes.
+
+Example terminal output:
+
+```
+Green
+Yellow
+Red
+```
+
+If you simply redirect the output:
+
+```bash
+sslscan netacad.com > output.txt
+```
+
+the colors disappear.
+
+AHA converts those ANSI colors into HTML formatting.
+
+Example:
+
+Terminal
+
+```
+Green text
+```
+
+becomes
+
+```html
+<span style="color:green">
+Green text
+</span>
+```
+
+Therefore the HTML page looks almost identical to the terminal.
+
+---
+
+# Step 3: Run sslscan
+
+Command:
+
+```bash
+sslscan netacad.com
+```
+
+---
+
+## What is sslscan?
+
+`sslscan` is a reconnaissance tool that inspects a server's SSL/TLS configuration.
+
+It connects to the HTTPS service (typically port 443) and reports details such as:
+
+* Supported TLS versions
+* Supported cipher suites
+* Certificate information
+* Key exchange algorithms
+* Signature algorithms
+
+It **does not** attempt to exploit the server; it only reports the SSL/TLS configuration.
+
+---
+
+## Example command
+
+```bash
+sslscan netacad.com
+```
+
+---
+
+Example output (simplified):
+
+```text
+Testing SSL server netacad.com on port 443
+
+TLSv1.2 enabled
+TLSv1.3 enabled
+
+Certificate:
+Subject:
+CN=netacad.com
+
+Issuer:
+DigiCert TLS RSA SHA256
+
+Signature Algorithm:
+SHA256
+
+Cipher:
+TLS_AES_256_GCM_SHA384
+```
+
+---
+
+# Understanding the Output
+
+## TLS Versions
+
+Example:
+
+```
+TLS 1.2
+```
+
+means the server accepts TLS version 1.2.
+
+```
+TLS 1.3
+```
+
+means it also supports the latest version.
+
+Older protocols such as:
+
+```
+SSLv2
+SSLv3
+TLS1.0
+```
+
+are considered obsolete or insecure if enabled.
+
+---
+
+## Certificate
+
+Example:
+
+```
+CN = netacad.com
+```
+
+CN means
+
+```
+Common Name
+```
+
+It identifies the primary domain covered by the certificate.
+
+---
+
+## Issuer
+
+Example:
+
+```
+Issuer:
+DigiCert
+```
+
+The issuer is the Certificate Authority (CA) that signed the certificate.
+
+---
+
+## Cipher Suites
+
+Example:
+
+```
+TLS_AES_256_GCM_SHA384
+```
+
+This tells you:
+
+* Encryption algorithm
+* Key length
+* Authentication method
+
+Modern ciphers use:
+
+* AES
+* GCM
+* SHA256 or SHA384
+
+---
+
+# Color Coding
+
+`sslscan` uses colors to highlight findings.
+
+| Color          | Meaning                                                             |
+| -------------- | ------------------------------------------------------------------- |
+| Red background | NULL cipher (no encryption)                                         |
+| Red            | Broken or insecure protocol/cipher (for example, SSLv2, SSLv3, MD5) |
+| Yellow         | Weak cipher or weak signing algorithm (such as SHA-1)               |
+| Purple         | Anonymous cipher (ADH/AECDH), which lacks authentication            |
+| Default/Green  | Generally indicates acceptable or stronger configurations           |
+
+If a modern website only supports TLS 1.2 and TLS 1.3 with strong ciphers, you may see few or no warning colors.
+
+---
+
+# Step 4: Save the Output as HTML
+
+Instead of viewing the results only in the terminal, create an HTML report.
+
+Command:
+
+```bash
+sslscan netacad.com | aha > sfa_cert.html
+```
+
+---
+
+## Breaking down the command
+
+### Part 1
+
+```bash
+sslscan netacad.com
+```
+
+Runs the SSL/TLS scan.
+
+---
+
+### Part 2
+
+```bash
+|
+```
+
+This is called a **pipe**.
+
+It sends the output of one command directly to another command.
+
+Example:
+
+```
+Command A
+|
+Command B
+```
+
+means:
+
+```
+Output of A
+↓
+
+Input of B
+```
+
+---
+
+### Part 3
+
+```bash
+aha
+```
+
+Converts terminal output into HTML.
+
+---
+
+### Part 4
+
+```bash
+>
+```
+
+This is **output redirection**.
+
+Instead of displaying the HTML in the terminal, it writes it to a file.
+
+---
+
+### Part 5
+
+```bash
+sfa_cert.html
+```
+
+This is the filename that will contain the HTML report.
+
+The complete data flow looks like:
+
+```text
+sslscan
+     │
+     ▼
+Terminal Output
+     │
+     ▼
+Pipe (|)
+     │
+     ▼
+AHA
+     │
+     ▼
+HTML
+     │
+     ▼
+sfa_cert.html
+```
+
+---
+
+# Step 5: Locate the File
+
+Since the prompt shows:
+
+```text
+(kali㉿Kali)-[~]
+```
+
+the current directory is your **Home** directory.
+
+List the files:
+
+```bash
+ls
+```
+
+You should see:
+
+```text
+Documents
+Downloads
+Pictures
+sfa_cert.html
+```
+
+---
+
+# Step 6: Open the Report
+
+Open the HTML file in Firefox.
+
+You can use the graphical file manager or run:
+
+```bash
+firefox sfa_cert.html
+```
+
+The report will resemble the terminal output but with a white background and preserved colors.
+
+---
+
+# Why Save as HTML?
+
+Saving as HTML makes it easier to:
+
+* Share the report with others.
+* Include it in documentation or assignments.
+* Preserve the color highlighting that helps identify weak or insecure configurations.
+* View the results in any web browser without rerunning the scan.
+
+---
+
+# Complete Workflow
+
+```text
+Update package list
+        │
+        ▼
+Install AHA
+        │
+        ▼
+Run sslscan
+        │
+        ▼
+Display SSL/TLS information
+        │
+        ▼
+Pipe output to AHA
+        │
+        ▼
+Convert ANSI colors to HTML
+        │
+        ▼
+Save as sfa_cert.html
+        │
+        ▼
+Open report in Firefox
+        │
+        ▼
+Review certificate and TLS configuration
+```
+
+## Summary of Commands
+
+| Command                                      | Purpose                                                                |
+| -------------------------------------------- | ---------------------------------------------------------------------- |
+| `sudo apt update`                            | Refresh the package list from Kali repositories.                       |
+| `sudo apt install -y aha`                    | Install the AHA utility without interactive confirmation.              |
+| `sslscan netacad.com`                        | Scan the SSL/TLS configuration of `netacad.com`.                       |
+| `sslscan netacad.com \| aha > sfa_cert.html` | Convert the colorized terminal output into an HTML report and save it. |
+| `ls`                                         | Verify that `sfa_cert.html` was created in the current directory.      |
+| `firefox sfa_cert.html`                      | Open the generated HTML report in Firefox for easier review.           |
