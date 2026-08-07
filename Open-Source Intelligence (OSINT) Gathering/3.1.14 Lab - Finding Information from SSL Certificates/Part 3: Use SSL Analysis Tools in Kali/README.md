@@ -1,5 +1,5 @@
 
-# Part 3: Use SSL Analysis Tools in Kali Linux (Complete Step-by-Step Guide)
+# Part 3: Use SSL Analysis Tools in Kali Linux 
 
 This lab introduces several SSL/TLS tools that come preinstalled (or are easily installable) in Kali Linux. These tools are widely used by **penetration testers, security analysts, SOC analysts, blue teams, and network administrators** to assess SSL/TLS configurations, analyze encrypted traffic, and troubleshoot secure communications.
 
