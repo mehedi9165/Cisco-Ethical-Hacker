@@ -82,9 +82,13 @@ It collects certificates from multiple public CT log servers.
 Website:
 
 ```
-https://crt.sh or
+https://crt.sh 
+```
+or 
+```
 https://crt.sh/?trk=article-ssr-frontend-pulse_little-text-block
 ```
+
 
 No login is required.
 
