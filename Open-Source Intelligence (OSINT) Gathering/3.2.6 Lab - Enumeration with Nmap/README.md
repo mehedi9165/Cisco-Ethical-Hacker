@@ -1,8 +1,5 @@
-Absolutely. The uploaded material is an **Nmap reconnaissance and enumeration lab**. I’ll explain it from opening Kali through the final SMB enumeration, including **what every command does, what the output means, and the answers to the lab questions**. I’ll use the lab's `10.6.6.0/24` network and `10.6.6.23` host as examples. 
 
-> **Important:** The commands below are appropriate for the provided lab environment. Don't scan or enumerate systems you don't own or don't have permission to test.
-
-# Nmap Lab — Complete Step-by-Step
+# Nmap Lab 
 
 ## 1. What is Nmap?
 
