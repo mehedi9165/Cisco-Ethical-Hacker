@@ -891,7 +891,6 @@ nmap --script smb-enum-shares.nse -p445 10.6.6.23
 | Hidden SMB shares               | **2**                                  |
 | Serious SMB weakness            | **Anonymous READ/WRITE access**        |
 
-These answers are based on the exact lab output contained in your uploaded material; live environments can produce different results.   
 
 ### The key pentesting lesson
 
@@ -923,4 +922,3 @@ Anonymous login allowed
 Security finding
 ```
 
-That's the fundamental reconnaissance workflow you should understand from this lab.
