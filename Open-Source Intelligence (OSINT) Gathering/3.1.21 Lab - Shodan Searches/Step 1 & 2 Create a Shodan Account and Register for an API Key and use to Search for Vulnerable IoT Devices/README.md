@@ -1,7 +1,3 @@
-Yes. This lab is mainly teaching **passive reconnaissance with Shodan**: understanding what information Shodan has already indexed about Internet-connected services. Shodan describes its fundamental data unit as a **banner**, which contains metadata collected from a service running on a device. ([Shodan Help Center][1])
-
-Because some of the lab's example searches concern potentially exposed webcams and anonymous FTP servers, I'll show you how to perform the **safe, passive parts** and how to document the results, but I won't provide instructions for logging into or interacting with devices you don't own.
-
 # Part 1 — Create a Shodan Account and API Key
 
 ## Step 1 — Open Shodan
