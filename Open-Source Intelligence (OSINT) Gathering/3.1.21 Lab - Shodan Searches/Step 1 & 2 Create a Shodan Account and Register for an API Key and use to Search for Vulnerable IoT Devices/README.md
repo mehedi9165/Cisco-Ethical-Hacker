@@ -587,7 +587,7 @@ You can structure your submission like this:
 
 # The Main Concept to Remember
 
-Your previous DNS/OSINT lessons fit together nicely:
+
 
 ```text
 DNS
